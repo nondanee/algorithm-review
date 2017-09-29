@@ -12,11 +12,6 @@ def quick_sort(nums,front=None,back=None):
   
     if back - front < 1:
         return
-
-#    standard = nums[0]
-#    nums[0] = None
-#    front = 0
-#    back = len(nums) - 1
         
     front_previous = front
     back_previous = back
@@ -42,9 +37,6 @@ def quick_sort(nums,front=None,back=None):
     
     assert front == back
     nums[front] = standard
-    
-#    quickorder(nums,0,front)
-#    quickorder(nums,back+1,len(nums)-1)
     
     quick_sort(nums,front_previous,front)
     quick_sort(nums,back+1,back_previous)
