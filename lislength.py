@@ -11,8 +11,7 @@ def les_length(nums1,nums2):
     # init memo
     memo = []
     for i in range(0,len(nums2)):
-        line = [0]*len(nums1)
-        memo.append(line)
+        memo.append([0]*len(nums1))
         
     for i in range(0,len(nums2)):
         for j in range(0,len(nums1)):
