@@ -16,38 +16,42 @@ def heap_sort(nums,reverse = 1):# big heap default(reverse)
         # 2i + 1     left child (if exist)
         # 2i + 2     right child (if exist)
     
-        left_child = parent * 2 + 1 if parent * 2 + 1 <= len(nums) - 1 else None
-        right_child = parent * 2 + 2 if parent * 2 + 2 <= len(nums) - 1 else None
+        left_child = parent * 2 + 1 if parent * 2 + 1 <= len(nums) - 1 else -1
+        right_child = parent * 2 + 2 if parent * 2 + 2 <= len(nums) - 1 else -1
         
         
-        if left_child == None:# parent is a leaf node
+        if left_child == -1:# parent is a leaf node
             return 
         
-        elif right_child == None:
-            if ( nums[left_child] < nums[parent] ) ^ big:
+        elif right_child == -1:
+            if nums[left_child] < nums[parent] and big == 0:
+                nums[parent],nums[left_child] = nums[left_child],nums[parent]
+            elif nums[left_child] > nums[parent] and big == 1:
                 nums[parent],nums[left_child] = nums[left_child],nums[parent]
         
-        elif nums[left_child] == nums[right_child]:# default exchange left_child with parent
-            if ( nums[left_child] < nums[parent] ) ^ big:
-                nums[parent],nums[left_child] = nums[left_child],nums[parent]
-                adjust_simple_tree(nums,left_child,big)
-        
-        elif ( nums[left_child] < nums[right_child] ) ^ big:
-            if ( nums[left_child] < nums[parent] ) ^ big:
+        elif big == 0:
+            if nums[left_child] <= nums[right_child] and nums[left_child] < nums[parent]:
                 nums[parent],nums[left_child] = nums[left_child],nums[parent]
                 adjust_simple_tree(nums,left_child,big)
-        
-        elif ( nums[right_child] < nums[left_child] ) ^ big:
-            if ( nums[right_child] < nums[parent] ) ^ big:
+            elif nums[left_child] > nums[right_child] and nums[right_child] < nums[parent]:
                 nums[parent],nums[right_child] = nums[right_child],nums[parent]
                 adjust_simple_tree(nums,right_child,big)
+        
+        elif big == 1:        
+            if nums[left_child] >= nums[right_child] and nums[left_child] > nums[parent]:
+                nums[parent],nums[left_child] = nums[left_child],nums[parent]
+                adjust_simple_tree(nums,left_child,big)
+            elif nums[left_child] < nums[right_child] and nums[right_child] > nums[parent]:
+                nums[parent],nums[right_child] = nums[right_child],nums[parent]
+                adjust_simple_tree(nums,right_child,big)
+
       
     # inital heap
     last_branch_node = (len(nums) - 1) // 2
     for branch_node in range(last_branch_node,-1,-1):
         adjust_simple_tree(nums,branch_node,reverse)
             
-    # shallow cpoy
+    # shallow copy
     origin = nums[:]
     
     # pop from heap
@@ -55,10 +59,11 @@ def heap_sort(nums,reverse = 1):# big heap default(reverse)
         nums[i] = origin[0]
         origin[0] = origin[len(origin)-1]
         origin.pop()
-        
-        last_branch_node = (len(nums) - 1) // 2
-        for branch_node in range(last_branch_node,-1,-1):
-            adjust_simple_tree(origin,branch_node,reverse)
+
+#        last_branch_node = (len(nums) - 1) // 2
+#        for branch_node in range(last_branch_node,-1,-1):
+#            adjust_simple_tree(origin,branch_node,reverse)
+        adjust_simple_tree(origin,0,reverse)
 
 
 
