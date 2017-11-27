@@ -28,8 +28,9 @@
 - [KMP字符串匹配](./kmp.py)
 
 #### 2017/11/17
-- [Floyd最短路径](./floyd.py)
+- [Floyd全源最短路径](./floyd.py)
 
 #### 2017/11/27
 - [Prim最小生成树](./prim.py)
 - [Kruskal最小生成树](./kruskal.py)
+- [Djikstra单源最短路径](./djikstra.py)
